@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DataContextProvider } from './Context/DataContext';
+import { ThemeContextProvider } from './Context/ThemeContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeContextProvider>
+      <DataContextProvider>
+        <App />
+      </DataContextProvider>
+    </ThemeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

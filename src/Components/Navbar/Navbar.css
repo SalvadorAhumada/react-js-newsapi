@@ -1,0 +1,21 @@
+.navbar__header {
+    margin: 1rem auto;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: white;
+    z-index: 2;
+}
+
+.navbar__flex_header {
+    display: flex;
+    align-items: center;
+}

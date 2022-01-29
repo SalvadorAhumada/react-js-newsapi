@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useContext } from "react";
+import { DataContext } from "./Context/DataContext";
+import Navbar from "./Components/Navbar/Navbar";
+import NewsFeed from "./Components/NewsFeed/NewsFeed";
+import ArticleOverview from "./Components/ArticleOverview/ArticleOverview";
+import Loading from "./Components/Loading/Loading";
+import "./App.css";
 
 function App() {
+
+  const { getNews, isLoading  } = useContext(DataContext);
+
+  useEffect(()=> {
+    getNews();
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ArticleOverview/>
+      <Navbar />
+      <div className="faux-bar"></div>
+      <NewsFeed />
+      {isLoading === true ? <Loading/> : ""}
     </div>
   );
 }

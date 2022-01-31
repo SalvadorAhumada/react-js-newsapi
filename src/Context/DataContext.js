@@ -23,10 +23,18 @@ export const DataContextProvider = ({ children }) => {
 
     const [isLoading, setLoading] = useState(true);
 
-    const getNews = () => {
+    const [filtered, setFiltered] = useState(false);
 
+    const restart = () => {
         setLoading(true);
+        setNoResults(false);
+        setFiltered(false);
+    }
+
+    const getNews = () => {
         
+        restart();
+
         fetch(`${apiPrefix}${topHeadlines}&apiKey=${API_KEY}`)
             .then(response => response.json())
             .then(({ articles }) => {
@@ -38,12 +46,12 @@ export const DataContextProvider = ({ children }) => {
 
     const getFilteredNews = () => {
 
-        setLoading(true);
-        setNoResults(false);
+        restart();
 
         fetch(`${apiPrefix}${filterNews}${filter}&apiKey=${API_KEY}`)
             .then(response => response.json())
             .then(({ articles }) => {
+                setFiltered(true);
                 if(articles.length === 0) setNoResults(true)
                 setLoading(false);
                 setNews(articles)
@@ -70,7 +78,8 @@ export const DataContextProvider = ({ children }) => {
         handleCloseModal,
         setOpenModal,
         isLoading,
-        noResults
+        noResults,
+        filtered
     }
 
     return <DataContext.Provider value={dataContext}>

@@ -8,7 +8,7 @@ import "./App.css";
 
 function App() {
 
-  const { getNews, isLoading  } = useContext(DataContext);
+  const { getNews, isLoading } = useContext(DataContext);
 
   useEffect(()=> {
     getNews();

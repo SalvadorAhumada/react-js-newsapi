@@ -36,7 +36,7 @@ export const ThemeContextProvider = ({ children }) => {
             },
             link2: {
                 display: "flex",
-                fontSize: "0.7rem",
+                fontSize: "0.9rem",
                 alignItems: "center",
                 color: "white",
                 textDecoration: "none",

@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { DataContext } from "../../Context/DataContext";
-import SearchIcon from "@mui/icons-material/Search";
+import { Search, Home } from "@mui/icons-material";
 import { Paper, InputBase, IconButton } from "@mui/material";
 import "./Searchbar.css";
 
 function Searchbar() {
 
-    const { setFilter, getFilteredNews } = useContext(DataContext);
+    const { setFilter, getFilteredNews, getNews, filtered } = useContext(DataContext);
 
     const styles = {
         form: {
@@ -23,12 +23,20 @@ function Searchbar() {
         }
     }
 
+    const isFiltered = filtered ? (<IconButton
+        onClick={getNews}
+        sx={styles.submit}
+        aria-label="home">
+        <Home />
+    </IconButton>) : null
+
     return (
         <div className="searchbar">
             <Paper
                 component="div"
                 sx={styles.form}
             >
+                {isFiltered}
                 <InputBase
                     sx={styles.input}
                     placeholder="Filter..."
@@ -36,11 +44,11 @@ function Searchbar() {
                     defaultValue={""}
                     onChange={e => setFilter(e.target.value.trim())}
                 />
-                <IconButton 
-                onClick={getFilteredNews}
-                sx={styles.submit} 
-                aria-label="search">
-                    <SearchIcon />
+                <IconButton
+                    onClick={getFilteredNews}
+                    sx={styles.submit}
+                    aria-label="search">
+                    <Search />
                 </IconButton>
             </Paper>
         </div>

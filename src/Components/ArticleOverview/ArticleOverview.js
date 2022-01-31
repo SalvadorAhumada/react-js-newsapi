@@ -8,7 +8,6 @@ import {
     Typography,
     Link
 } from "@mui/material";
-// import CloseIcon from "@mui/icons-material/Close";
 import { OpenInNew, Close } from "@mui/icons-material";
 import "./ArticleOverview.css";
 

@@ -14,11 +14,15 @@ import "./ArticleOverview.css";
 function ArticleOverview() {
 
     const {
-        openModal,
         setOpenModal,
-        selectedArticle,
-        handleCloseModal
-    } = useContext(DataContext);
+        setSelectedArticle,
+        openModal,
+        selectedArticle } = useContext(DataContext);
+
+    const handleCloseModal = () => {
+        setSelectedArticle({});
+        setOpenModal(false);
+    }
 
     useEffect(() => {
 

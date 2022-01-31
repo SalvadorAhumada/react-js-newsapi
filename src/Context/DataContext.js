@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { API_KEY } from '../config/API';
+import { API_KEY } from '../Config/API';
 
 export const DataContext = createContext({});
 
@@ -25,10 +25,16 @@ export const DataContextProvider = ({ children }) => {
 
     const [filtered, setFiltered] = useState(false);
 
+    const [isError, setError] = useState(false);
+
     const restart = () => {
         setLoading(true);
         setNoResults(false);
         setFiltered(false);
+    }
+
+    const catchEx = (ex) => {
+        setError(true);
     }
 
     const getNews = () => {
@@ -41,7 +47,7 @@ export const DataContextProvider = ({ children }) => {
                 setLoading(false);
                 setNews(articles)
             })
-            .catch(() => setLoading(false))
+            .catch((ex) => catchEx(ex))
     }
 
     const getFilteredNews = () => {
@@ -56,30 +62,25 @@ export const DataContextProvider = ({ children }) => {
                 setLoading(false);
                 setNews(articles)
             })
-            .catch(() => setLoading(false))
+            .catch((ex) => catchEx(ex))
 
     }
 
-    const handleCloseModal = () => {
-        setSelectedArticle({});
-        setOpenModal(false);
-    };
-
-
     const dataContext = {
-        getNews,
-        news,
-        setFilter,
         filter,
+        filtered,
         getFilteredNews,
-        setSelectedArticle,
+        getNews,
+        isError,
+        isLoading,
+        news,
+        noResults,
         openModal,
         selectedArticle,
-        handleCloseModal,
+        setFilter,
         setOpenModal,
-        isLoading,
-        noResults,
-        filtered
+        selectedArticle,
+        setSelectedArticle,
     }
 
     return <DataContext.Provider value={dataContext}>

@@ -6,7 +6,7 @@ import "./Searchbar.css";
 
 function Searchbar() {
 
-    const { setFilter, getFilteredNews, getNews, filtered } = useContext(DataContext);
+    const { setFilter, getFilteredNews, getNews, filtered, filter  } = useContext(DataContext);
 
     const styles = {
         form: {
@@ -23,12 +23,21 @@ function Searchbar() {
         }
     }
 
+    const handleRestart = () => {
+        getNews();
+        setFilter('');
+    }
+
     const isFiltered = filtered ? (<IconButton
-        onClick={getNews}
+        onClick={handleRestart}
         sx={styles.submit}
         aria-label="home">
         <Home />
     </IconButton>) : null
+
+    const handleSearch= ({ key }) => {
+        if(key === "Enter") getFilteredNews();
+    }
 
     return (
         <div className="searchbar">
@@ -41,8 +50,9 @@ function Searchbar() {
                     sx={styles.input}
                     placeholder="Filter..."
                     inputProps={{ "aria-label": "Filter results" }}
-                    defaultValue={""}
+                    value={filter}
                     onChange={e => setFilter(e.target.value.trim())}
+                    onKeyDown={(e) => handleSearch(e)}
                 />
                 <IconButton
                     onClick={getFilteredNews}
